@@ -1,7 +1,6 @@
 package game.Unit;
 
-
-public abstract class Person implements GameInterface{
+public abstract class Person implements GameInterface {
     /**
      * monk монах
      * countryman крестьянин
@@ -12,7 +11,7 @@ public abstract class Person implements GameInterface{
      * arbalester арбалетчик
      */
     private Double health;
-    private int maxHealth; 
+    private int maxHealth;
     private int hardiness;
     protected int damage;
     protected int defense;
@@ -37,12 +36,10 @@ public abstract class Person implements GameInterface{
         return hardiness;
     }
 
-    // public void greetingPerson() {
-    // System.out.println("Hello! My name is " + this.getName() + ".");
-    // }
-
-    public void setHealth(Double health) {if (health >= 0) this.health = health;}
-
+    public void setHealth(Double health) {
+        if (health >= 0)
+            this.health = health;
+    }
 
     public int getMaxHealth() {
         return maxHealth;
@@ -64,9 +61,7 @@ public abstract class Person implements GameInterface{
 
     @Override
     public void step() {
-        
-    }
 
-    
+    }
 
 }

@@ -21,10 +21,10 @@ public class Main {
         for (int i = 0; i < 10; i++) {
 
             switch (rnd.nextInt(9)) {
-                case  0:
+                case 0:
                     characters.add(new Monk(getName()));
                     break;
-                case  1:
+                case 1:
                     characters.add(new Wizard(getName()));
                     break;
                 case 2:
@@ -36,7 +36,7 @@ public class Main {
                 case 4:
                     characters.add(new Arbalester(getName()));
                     break;
-                case  5:
+                case 5:
                     characters.add(new Spearman(getName()));
                     break;
                 default:
