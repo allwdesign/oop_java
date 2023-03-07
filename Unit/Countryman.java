@@ -1,21 +1,30 @@
 package game.Unit;
 
 public class Countryman extends Person {
-
+    String name;
     int smartness;
 
-    public Countryman(String name, int damage, Double health, int hardiness, int defense, int smartness) {
-        super(name, damage, health, hardiness, defense);
-        this.smartness = smartness;
+    public Countryman(String name) {
+        super(75.0, 85, 90, 5, 5);
+        this.name = name;
+        this.smartness = 8;
     }
 
-    public void feedCartridges() {
-        System.out.println("The cartridges has been feed!");
+    public void feedCartridges(Bowman whom) {
+        if (whom.changeMagazine()) {
+            System.out.println("The cartridges has been feed!");
+        }
+
     }
 
-    public void getInfo() {
-        System.out.printf(
-                "Name: %s Health: %s Smartness: %d \n", super.getName(), super.getHealth().toString(), this.smartness);
+    @Override
+    public String getInfo() {
+        return "Я крестьянин!";
+    }
+
+    @Override
+    public void step() {
+        super.step();
     }
 
 }

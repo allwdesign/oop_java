@@ -1,6 +1,7 @@
 package game.Unit;
 
-public class Person {
+
+public abstract class Person implements GameInterface{
     /**
      * monk монах
      * countryman крестьянин
@@ -10,22 +11,18 @@ public class Person {
      * spearman копейщик пехота
      * arbalester арбалетчик
      */
-    String name;
+    private Double health;
+    private int maxHealth; 
+    private int hardiness;
     protected int damage;
-    Double health;
-    int hardiness;
     protected int defense;
 
-    public Person(String name, int damage, Double health, int hardiness, int defense) {
-        this.name = name;
-        this.damage = damage;
+    public Person(Double health, int maxHealth, int hardiness, int damage, int defense) {
         this.health = health;
+        this.maxHealth = maxHealth;
         this.hardiness = hardiness;
+        this.damage = damage;
         this.defense = defense;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public int getDamage() {
@@ -40,12 +37,36 @@ public class Person {
         return hardiness;
     }
 
-    public void greetingPerson() {
-        System.out.println("Hello! My name is " + this.getName() + ".");
+    // public void greetingPerson() {
+    // System.out.println("Hello! My name is " + this.getName() + ".");
+    // }
+
+    public void setHealth(Double health) {if (health >= 0) this.health = health;}
+
+
+    public int getMaxHealth() {
+        return maxHealth;
     }
 
-    public void setHealth(Double health) {
-        this.health = health;
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
     }
+
+    public void attack(Person whom) {
+        Double wHealth = whom.getHealth();
+        whom.setHealth(wHealth < this.damage ? 0 : wHealth - this.damage);
+    }
+
+    @Override
+    public String getInfo() {
+        return "Я человек!";
+    }
+
+    @Override
+    public void step() {
+        
+    }
+
+    
 
 }
