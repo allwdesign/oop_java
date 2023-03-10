@@ -71,7 +71,7 @@ public class Main {
 
         // @Override
         // public int compare(Person o1, Person o2) {
-        // return o1.getSpeed()- o2.getSpeed();
+        // return o2.getSpeed()- o1.getSpeed();
         // }
 
         // });
