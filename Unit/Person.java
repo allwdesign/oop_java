@@ -1,44 +1,45 @@
 package game.Unit;
 
-public abstract class Person implements GameInterface {
+public abstract class Person implements GameInterface, Comparable<Person> {
     /**
-     * monk монах
-     * countryman крестьянин
-     * bandit разбойник
-     * sniper снайпер
-     * wizard колдун
-     * spearman копейщик пехота
-     * arbalester арбалетчик
+     * Class Person - Персонаж базовый абстрактный класс для всех персонажей
+     * 
+     * String name - имя персонажа.
+     * public int x, y;
+     * 
+     * private int currentHealth - текущий уровень здоровья;
+     * private int maxHealth - максимальный уровень здоровья;
+     * private int attack - аттака;
+     * private int defence - защита;
+     * private int minDamage - минимальный урон;
+     * private int maxDamage - максимальный урон;
+     * private int speed - скорость(определяет очередность хода персонажа).
+     * 
      */
-    private Double health;
-    private int maxHealth;
-    private int hardiness;
-    protected int damage;
-    protected int defense;
+    public String name;
+    public int x, y;
+    private int currentHealth, maxHealth, attack, defence, minDamage, maxDamage, speed;
 
-    public Person(Double health, int maxHealth, int hardiness, int damage, int defense) {
-        this.health = health;
+    public Person(String name, int x, int y, int currentHealth, int maxHealth, int attack, int defence, int minDamage,
+            int maxDamage, int speed) {
+        this.name = name;
+        this.x = x;
+        this.y = y;
+        this.currentHealth = currentHealth;
         this.maxHealth = maxHealth;
-        this.hardiness = hardiness;
-        this.damage = damage;
-        this.defense = defense;
+        this.attack = attack;
+        this.defence = defence;
+        this.minDamage = minDamage;
+        this.maxDamage = maxDamage;
+        this.speed = speed;
     }
 
-    public int getDamage() {
-        return damage;
+    public int getCurrentHealth() {
+        return currentHealth;
     }
 
-    public Double getHealth() {
-        return health;
-    }
-
-    public int getHardiness() {
-        return hardiness;
-    }
-
-    public void setHealth(Double health) {
-        if (health >= 0)
-            this.health = health;
+    public void setCurrentHealth(int currentHealth) {
+        this.currentHealth = currentHealth;
     }
 
     public int getMaxHealth() {
@@ -49,19 +50,65 @@ public abstract class Person implements GameInterface {
         this.maxHealth = maxHealth;
     }
 
-    public void attack(Person whom) {
-        Double wHealth = whom.getHealth();
-        whom.setHealth(wHealth < this.damage ? 0 : wHealth - this.damage);
+    public int getAttack() {
+        return attack;
+    }
+
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+
+    public int getDefence() {
+        return defence;
+    }
+
+    public void setDefence(int defence) {
+        this.defence = defence;
+    }
+
+    public int getMinDamage() {
+        return minDamage;
+    }
+
+    public void setMinDamage(int minDamage) {
+        this.minDamage = minDamage;
+    }
+
+    public int getMaxDamage() {
+        return maxDamage;
+    }
+
+    public void setMaxDamage(int maxDamage) {
+        this.maxDamage = maxDamage;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
     }
 
     @Override
     public String getInfo() {
-        return "Я человек!";
+        return String.format(" : %s Здоровье: %s Атака: %s Защита: %s Скорость: %s", name, 
+            getCurrentHealth(), getAttack(), getDefence(), getSpeed());
     }
 
     @Override
     public void step() {
 
+    }
+
+    @Override
+    public int compareTo(Person o) {
+        if (this.getSpeed() > o.getSpeed())
+            return 1;
+        else if (this.getSpeed() < o.getSpeed())
+            return -1;
+        else
+            return 0;
     }
 
 }

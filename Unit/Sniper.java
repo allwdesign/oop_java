@@ -1,17 +1,37 @@
 package game.Unit;
 
 public class Sniper extends Bowman {
-    int secrecy;
+    /*
+     * Сlass Sniper - Снайпер дочерний класс класса Лучников
+     * 
+     * private int secrecy - маскировка.
+     * 
+     */
+    private int secrecy;
+
+    public Sniper(String name, int x, int y, int currentHealth, int maxHealth, int attack, int defence, int minDamage,
+            int maxDamage, int speed, int shots, int sharpshooting, int secrecy, int distance) {
+        super(name, x, y, currentHealth, maxHealth, attack, defence, minDamage, maxDamage, speed, shots, sharpshooting, distance);
+        this.secrecy = secrecy;
+    }
 
     public Sniper(String name) {
-        super(90.0, 100, 95, 90, 10, 10, 10, 97, 5);
-        super.name = name;
-        this.secrecy = 70;
+        super(name, 2, 2, 15, 15, 12, 10, 8, 10, 9, 32, 9, 15);
+        this.secrecy = 10;
+    }
+
+    public int getSecrecy() {
+        return secrecy;
+    }
+
+    public void setSecrecy(int secrecy) {
+        this.secrecy = secrecy;
     }
 
     @Override
     public String getInfo() {
-        return "Я снайпер!";
+        String str = "Снайпер" + super.getInfo();
+        return str;
     }
 
     @Override

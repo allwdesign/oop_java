@@ -1,18 +1,33 @@
 package game.Unit;
 
 public abstract class Healer extends Person {
-    int treatSkills;
-    String name;
+    /*
+     * Сlass Healer - Лекари базовый абстрактный класс
+     * 
+     * private int magic - магия.
+     * 
+     */
+    private int magic;
 
-    public Healer(Double health, int maxHealth, int hardiness, int damage, int defense, int treatSkills) {
-        super(health, maxHealth, hardiness, damage, defense);
-        this.treatSkills = treatSkills;
+    public Healer(String name, int x, int y, int currentHealth, int maxHealth, int attack, int defence, int minDamage,
+            int maxDamage, int speed) {
+        super(name, x, y, currentHealth, maxHealth, attack, defence, minDamage, maxDamage, speed);
+        this.magic = 1;
+    }
+
+    public int getMagic() {
+        return magic;
+    }
+
+    public void setMagic(int magic) {
+        this.magic = magic;
     }
 
     public void toTreat(Person whom) {
         int maxH = whom.getMaxHealth();
         System.out.println("Your hero is cured :)");
-        Double tmpHealth = whom.getHealth() * this.treatSkills;
-        whom.setHealth(tmpHealth >=  maxH ? maxH : tmpHealth);
+        int tmpHealth = whom.getCurrentHealth() * this.getMagic();
+        whom.setCurrentHealth(tmpHealth >= maxH ? maxH : tmpHealth);
     }
+
 }

@@ -1,16 +1,18 @@
 package game.Unit;
 
 public class Arbalester extends Bowman {
-    
-    public Arbalester(Double health, int maxHealth, int hardiness, int damage, int defense, int cartridges,
-            int maxCartriges, int sharpshooting, int speed, String name) {
-        super(health, maxHealth, hardiness, damage, defense, cartridges, maxCartriges, sharpshooting, speed);
-        super.name = name;
+    /*
+     * Сlass Arbalester - Арбалетчик дочерний класс класса Лучников
+     * 
+     */
+
+    public Arbalester(String name, int x, int y, int currentHealth, int maxHealth, int attack, int defence,
+            int minDamage, int maxDamage, int speed, int shots, int sharpshooting, int distance) {
+        super(name, x, y, currentHealth, maxHealth, attack, defence, minDamage, maxDamage, speed, shots, sharpshooting, distance);
     }
 
     public Arbalester(String name) {
-        super(100.0, 100, 100, 12, 8, 20, 20, 85, 78);
-        super.name = name;
+        super(name, 1, 2, 10, 10, 6, 3, 2, 3, 4, 16, 8, 10);
     }
 
     public void pullTheString() {
@@ -19,14 +21,13 @@ public class Arbalester extends Bowman {
 
     @Override
     public String getInfo() {
-        return "Я арбалетчик!";
+        String str = "Арбалетчик" + super.getInfo();
+        return str;
     }
 
     @Override
     public void step() {
-        // TODO Auto-generated method stub
         super.step();
     }
 
-    
 }
