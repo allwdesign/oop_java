@@ -60,21 +60,20 @@ public class Main {
 
         allPlayers.addAll(team2);
 
-        // First variant with SpeedComparator()
+        // First variant with  Comparator<Person>() from largest to smallest
         printPlayers("Before sorting", allPlayers);
 
-        allPlayers.sort(new SpeedComparator());
+        allPlayers.sort(new Comparator<Person>() {
 
-        // Second variant with Comparator<Person>()
+            @Override
+            public int compare(Person o1, Person o2) {
+                return o2.getSpeed()- o1.getSpeed();
+            }
 
-        // allPlayers.sort(new Comparator<Person>() {
+        });  
 
-        // @Override
-        // public int compare(Person o1, Person o2) {
-        // return o2.getSpeed()- o1.getSpeed();
-        // }
-
-        // });
+        // Second variant with with SpeedComparator() from smallest to largest
+        // allPlayers.sort(new SpeedComparator());
 
         printPlayers("After sorting", allPlayers);
     }
