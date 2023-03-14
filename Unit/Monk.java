@@ -1,5 +1,7 @@
 package game.Unit;
 
+import java.util.ArrayList;
+
 public class Monk extends Healer {
     /*
      * Сlass Monk - Монах дочерний класс класса Лекари
@@ -15,8 +17,8 @@ public class Monk extends Healer {
         this.godliness = godliness;
     }
 
-    public Monk(String name) {
-        super(name, 5, 1, 30, 30, 12, 7, -4, -4, 5);
+    public Monk(String name, int x, int y) {
+        super(name, x, y, 30, 30, 12, 7, -4, -4, 5);
         this.godliness = 9;
     }
 
@@ -39,8 +41,9 @@ public class Monk extends Healer {
     }
 
     @Override
-    public void step() {
-        super.step();
+    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
+        super.step(friends, enemies);
     }
 
+    
 }

@@ -1,5 +1,7 @@
 package game.Unit;
 
+import java.util.ArrayList;
+
 public class Countryman extends Person {
     /*
      * Сlass Countryman - Крестьянин дочерний класс класса Персонаж
@@ -15,8 +17,8 @@ public class Countryman extends Person {
         this.delivery = delivery;
     }
 
-    public Countryman(String name) {
-        super(name, 4, 1, 1, 1, 1, 1, 1, 1, 3);
+    public Countryman(String name, int x, int y) {
+        super(name, x, y, 1, 1, 1, 1, 1, 1, 3);
         this.delivery = 1;
     }
 
@@ -42,8 +44,10 @@ public class Countryman extends Person {
     }
 
     @Override
-    public void step() {
-        super.step();
+    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
+        super.step(friends, enemies);
     }
+
+    
 
 }

@@ -1,5 +1,7 @@
 package game.Unit;
 
+import java.util.ArrayList;
+
 public class Wizard extends Healer {
     /*
      * Сlass Healer - Колдун дочерний класс класса Лекари
@@ -11,8 +13,8 @@ public class Wizard extends Healer {
         super(name, x, y, currentHealth, maxHealth, attack, defence, minDamage, maxDamage, speed);
     }
 
-    public Wizard(String name) {
-        super(name, 3, 5, 30, 30, 17, 12, -5, -5, 9);
+    public Wizard(String name, int x, int y) {
+        super(name, x, y, 30, 30, 17, 12, -5, -5, 9);
     }
 
     public void wiz() {
@@ -27,7 +29,9 @@ public class Wizard extends Healer {
     }
 
     @Override
-    public void step() {
-        super.step();
+    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
+        super.step(friends, enemies);
     }
+
+    
 }

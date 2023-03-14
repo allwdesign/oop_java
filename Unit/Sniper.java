@@ -1,5 +1,7 @@
 package game.Unit;
 
+import java.util.ArrayList;
+
 public class Sniper extends Bowman {
     /*
      * Сlass Sniper - Снайпер дочерний класс класса Лучников
@@ -15,8 +17,8 @@ public class Sniper extends Bowman {
         this.secrecy = secrecy;
     }
 
-    public Sniper(String name) {
-        super(name, 2, 2, 15, 15, 12, 10, 8, 10, 9, 32, 9, 15);
+    public Sniper(String name, int x, int y) {
+        super(name, x, y, 15, 15, 12, 10, 8, 10, 9, 32, 9, 15);
         this.secrecy = 10;
     }
 
@@ -35,8 +37,10 @@ public class Sniper extends Bowman {
     }
 
     @Override
-    public void step() {
-        super.step();
+    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
+        super.step(friends, enemies);
     }
+
+    
 
 }

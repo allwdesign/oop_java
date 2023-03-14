@@ -1,5 +1,7 @@
 package game.Unit;
 
+import java.util.ArrayList;
+
 public class Spearman extends Person {
     /*
      * Сlass Countryman - Крестьянин дочерний класс класса Персонаж
@@ -15,8 +17,8 @@ public class Spearman extends Person {
         this.spearProficiency = spearProficiency;
     }
 
-    public Spearman(String name) {
-        super(name, 0, 9, 10, 10, 4, 5, 1, 3, 4);
+    public Spearman(String name, int x, int y) {
+        super(name, x, y, 10, 10, 4, 5, 1, 3, 4);
         this.spearProficiency = 7;
     }
 
@@ -35,8 +37,10 @@ public class Spearman extends Person {
     }
 
     @Override
-    public void step() {
-        super.step();
+    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
+        super.step(friends, enemies);
     }
+
+    
 
 }

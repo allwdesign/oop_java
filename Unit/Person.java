@@ -1,5 +1,7 @@
 package game.Unit;
 
+import java.util.ArrayList;
+
 public abstract class Person implements GameInterface, Comparable<Person> {
     /**
      * Class Person - Персонаж базовый абстрактный класс для всех персонажей
@@ -19,9 +21,11 @@ public abstract class Person implements GameInterface, Comparable<Person> {
     public String name;
     public int x, y;
     private int currentHealth, maxHealth, attack, defence, minDamage, maxDamage, speed;
+    protected Vector2D coords;
 
     public Person(String name, int x, int y, int currentHealth, int maxHealth, int attack, int defence, int minDamage,
             int maxDamage, int speed) {
+        coords = new Vector2D(x, y);
         this.name = name;
         this.x = x;
         this.y = y;
@@ -90,14 +94,27 @@ public abstract class Person implements GameInterface, Comparable<Person> {
         this.speed = speed;
     }
 
-    @Override
-    public String getInfo() {
-        return String.format(" : %s Здоровье: %s Атака: %s Защита: %s Скорость: %s", name, 
-            getCurrentHealth(), getAttack(), getDefence(), getSpeed());
+    public int findNearest(ArrayList<Person> enemies) {
+        int index = 0;
+        double min = 100;
+        for (int i = 0; i < enemies.size(); i++) {
+
+            if (min > coords.calcDistance(enemies.get(i).coords)) {
+                index = i;
+                min = coords.calcDistance(enemies.get(i).coords);
+            }
+        }
+        return index;
     }
 
     @Override
-    public void step() {
+    public String getInfo() {
+        return String.format(" : %s Здоровье: %s Атака: %s Защита: %s Скорость: %s", name,
+                getCurrentHealth(), getAttack(), getDefence(), getSpeed());
+    }
+
+    @Override
+    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
 
     }
 

@@ -1,5 +1,6 @@
 package game.Unit;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Bandit extends Person {
@@ -18,8 +19,8 @@ public class Bandit extends Person {
         this.smartness = smartness;
     }
 
-    public Bandit(String name) {
-        super(name, 3, 5, 10, 10, 8, 3, 2, 4, 6);
+    public Bandit(String name, int x, int y) {
+        super(name, x, y, 10, 10, 8, 3, 2, 4, 6);
         this.smartness = 9;
     }
 
@@ -46,8 +47,10 @@ public class Bandit extends Person {
     }
 
     @Override
-    public void step() {
-        super.step();
+    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
+        // TODO Auto-generated method stub
+        super.step(friends, enemies);
     }
 
+    
 }

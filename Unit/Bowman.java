@@ -1,5 +1,7 @@
 package game.Unit;
 
+import java.util.ArrayList;
+
 public abstract class Bowman extends Person {
     /*
      * Сlass Bowman - Лучники базовый абстрактный класс
@@ -57,6 +59,29 @@ public abstract class Bowman extends Person {
         }
         return changed;
 
+    }
+
+    @Override
+    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
+
+        super.step(friends, enemies);
+        if ((getCurrentHealth() == 0) || (getShots() == 0))
+            return;
+
+        // 3.2 Поиск среди противников наиболее приближённого.
+        int index = super.findNearest(enemies);
+        // 3.3 Нанести среднее повреждение найденному противнику.
+        enemies.get(index).setCurrentHealth(getCurrentHealth() - (getMaxDamage() + getMinDamage()) / 2);
+
+        // 3.4 Найти среди своих крестьянина. 
+        // 3.5 Если найден завершить метод иначе уменьшить запас стрел на одну.
+        for (Person friend: friends) {
+            if (friend instanceof Countryman) {
+                return;
+            } else {
+                this.goBang();
+            }
+        }
     }
 
 }
