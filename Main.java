@@ -3,6 +3,7 @@ package game;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Random;
+import java.util.Scanner;
 
 import game.Unit.Arbalester;
 import game.Unit.Bandit;
@@ -28,6 +29,8 @@ public class Main {
      * 
      * 
      */
+
+    static final int TEAMSIZE = 10;
     public static void main(String[] args) {
 
         ArrayList<Person> team1 = new ArrayList<>();
@@ -56,28 +59,31 @@ public class Main {
 
         printPlayers("", team2);
 
-        ArrayList<Person> allPlayers = new ArrayList<>(team1);
+        ArrayList<Person> allPlayers = new ArrayList<>();
+        Scanner userInput = new Scanner(System.in);
 
+        allPlayers.addAll(team1);
         allPlayers.addAll(team2);
 
-        // First variant with  Comparator<Person>() from largest to smallest
-        printPlayers("Before sorting", allPlayers);
+        sortTeam(allPlayers);
 
-        allPlayers.sort(new Comparator<Person>() {
-
-            @Override
-            public int compare(Person o1, Person o2) {
-                return o2.getSpeed()- o1.getSpeed();
+        
+        while (true){
+            userInput.nextLine();
+            // Define friend or foe 
+            for (Person player: allPlayers) {
+                if (team1.contains(player)) {
+                    player.step(team1, team2);                
+                } else {
+                    player.step(team2, team1);
+                }
+                
+                System.out.printf("N: %s cH: %s", player.name, player.getCurrentHealth());
+                System.out.println();
             }
+            
 
-        });  
-
-        // Second variant with with SpeedComparator() from smallest to largest
-        // allPlayers.sort(new SpeedComparator());
-
-        printPlayers("After sorting", allPlayers);
-
-        //.step(team1, team2)
+        }
     }
 
     public static void printPlayers(String msg, ArrayList<Person> players) {
@@ -87,13 +93,35 @@ public class Main {
         }
     }
 
+    private static void sortTeam(ArrayList<Person> team) {
+        /*
+         * Sort players by speed if speeds are not equal.
+         * And sort by health if the speeds are equal.
+         * 
+         * From fast to slow.
+         */
+        
+        team.sort(new Comparator<Person>() {
+
+            @Override
+            public int compare(Person o1, Person o2) {
+                if (o2.getSpeed() == o1.getSpeed()) {
+                    return (int) (o2.getCurrentHealth()- o1.getCurrentHealth());
+                } else {
+                    return (int) (o2.getSpeed() - o1.getSpeed());
+                }
+            }
+
+        }); 
+    }
+
     private static void createTeam(ArrayList<Person> team, ArrayList<Integer> indexes, int teamNumber) {
         // team1[3, 6, 2, 1]
         // team2[3, 5, 4, 0]
 
         Random rnd = new Random();
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i < TEAMSIZE + 1; i++) {
 
             switch (indexes.get(rnd.nextInt(indexes.size()))) {
                 case 0:

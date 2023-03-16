@@ -19,23 +19,22 @@ public abstract class Person implements GameInterface, Comparable<Person> {
      * 
      */
     public String name;
-    public int x, y;
+    public String state;
     private int currentHealth, maxHealth, attack, defence, minDamage, maxDamage, speed;
     protected Vector2D coords;
 
     public Person(String name, int x, int y, int currentHealth, int maxHealth, int attack, int defence, int minDamage,
             int maxDamage, int speed) {
+        state = "Stand";
         coords = new Vector2D(x, y);
         this.name = name;
-        this.x = x;
-        this.y = y;
         this.currentHealth = currentHealth;
         this.maxHealth = maxHealth;
         this.attack = attack;
         this.defence = defence;
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
-        this.speed = speed;
+        this.speed = speed;        
     }
 
     public int getCurrentHealth() {
@@ -50,7 +49,7 @@ public abstract class Person implements GameInterface, Comparable<Person> {
         return maxHealth;
     }
 
-    public void setMaxHealth(int maxHealth) {
+    protected void setMaxHealth(int maxHealth) {
         this.maxHealth = maxHealth;
     }
 
@@ -94,12 +93,12 @@ public abstract class Person implements GameInterface, Comparable<Person> {
         this.speed = speed;
     }
 
-    public int findNearest(ArrayList<Person> enemies) {
+    protected int findNearest(ArrayList<Person> enemies) {
         int index = 0;
         double min = 100;
         for (int i = 0; i < enemies.size(); i++) {
-
-            if (min > coords.calcDistance(enemies.get(i).coords)) {
+            // enemy must be alive
+            if (min > coords.calcDistance(enemies.get(i).coords) & !enemies.get(i).state.equals("Die")) {
                 index = i;
                 min = coords.calcDistance(enemies.get(i).coords);
             }
@@ -107,10 +106,16 @@ public abstract class Person implements GameInterface, Comparable<Person> {
         return index;
     }
 
+    protected void getDamage(float damage) {
+        currentHealth -= damage;
+        if (currentHealth > maxHealth) currentHealth = maxHealth;
+        if (currentHealth < 0) state = "Die";
+    }
+
     @Override
     public String getInfo() {
-        return String.format(" : %s Здоровье: %s Атака: %s Защита: %s Скорость: %s", name,
-                getCurrentHealth(), getAttack(), getDefence(), getSpeed());
+        return String.format(" : %s. Здоровье: %s. Состояние: %s", name,
+                getCurrentHealth(), this.state);
     }
 
     @Override

@@ -47,14 +47,13 @@ public abstract class Bowman extends Person {
     }
 
     public void goBang() {
-        System.out.println("Bang!");
-        setShots(getShots() - 1);
+        this.setShots(this.getShots() - 1);
     }
 
     public boolean changeMagazine() {
         boolean changed = false;
-        if (getShots() == 0) {
-            setShots(1);
+        if (this.getShots() == 0) {
+            this.setShots(1);
             changed = true;
         }
         return changed;
@@ -63,20 +62,28 @@ public abstract class Bowman extends Person {
 
     @Override
     public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
-
         super.step(friends, enemies);
-        if ((getCurrentHealth() == 0) || (getShots() == 0))
-            return;
+        
+        if (state.equals("Die") || getShots() == 0) return;
 
-        // 3.2 Поиск среди противников наиболее приближённого.
-        int index = super.findNearest(enemies);
-        // 3.3 Нанести среднее повреждение найденному противнику.
-        enemies.get(index).setCurrentHealth(getCurrentHealth() - (getMaxDamage() + getMinDamage()) / 2);
+        // Search among enemies for the closest. Enemy must be alive
+        int target = super.findNearest(enemies);
+        // Deal moderate damage to found enemy.
+        Person enemy = enemies.get(target);
+        float damage = (enemy.getDefence() - this.getAttack() > 0) ? 
+            this.getMinDamage() : (enemy.getDefence() - this.getAttack() < 0) ?
+            this.getMaxDamage() : (this.getMaxDamage() + this.getMinDamage()) / 2;
 
-        // 3.4 Найти среди своих крестьянина. 
-        // 3.5 Если найден завершить метод иначе уменьшить запас стрел на одну.
-        for (Person friend: friends) {
-            if (friend instanceof Countryman) {
+        enemy.getDamage(damage);
+        System.out.println(this.getInfo() + " нанес ущерб " + damage + " " + enemy.getInfo());
+
+        // Find among your countryman.
+        // If found, complete the method otherwise reduce the stock of arrows by one.
+        for (int i = 0; i < friends.size(); i++) {
+            Person friend = friends.get(i);
+            // if (friend instanceof Countryman) - slow!
+            if (friend.getInfo().contains("Крестьянин") && friend.state.equals("Stand")) {
+                friend.state = "Busy";
                 return;
             } else {
                 this.goBang();

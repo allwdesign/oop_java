@@ -31,6 +31,21 @@ public class Wizard extends Healer {
     @Override
     public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
         super.step(friends, enemies);
+        // System.out.println("Wizard step " + this.name);
+
+        if (!this.state.equals("Die")) {
+
+            // Find among your character with health less than the maximum and cure him!
+            for (int i = 0; i < friends.size(); i++) {
+                Person friend = friends.get(i);
+                // System.out.println("Персонаж " + friend.getInfo());
+                if ((friend.getCurrentHealth() < friend.getMaxHealth()) && friend.state.equals("Stand")) {
+                    this.toTreat(friend);
+                    break;
+                }
+            }
+
+        }
     }
 
     

@@ -1,5 +1,7 @@
 package game.Unit;
 
+import java.util.ArrayList;
+
 public abstract class Healer extends Person {
     /*
      * Сlass Healer - Лекари базовый абстрактный класс
@@ -24,10 +26,17 @@ public abstract class Healer extends Person {
     }
 
     public void toTreat(Person whom) {
-        int maxH = whom.getMaxHealth();
-        System.out.println("Your hero is cured :)");
-        int tmpHealth = whom.getCurrentHealth() * this.getMagic();
-        whom.setCurrentHealth(tmpHealth >= maxH ? maxH : tmpHealth);
+        // int maxH = whom.getMaxHealth();
+        // System.out.println("Your hero is cured :)");
+        // int tmpHealth = whom.getCurrentHealth() * this.getMagic();
+        // whom.setCurrentHealth(tmpHealth >= maxH ? maxH : tmpHealth);
+        whom.getDamage(this.getMinDamage());
+        System.out.println(this.getInfo() + " вылечил " + whom.getInfo());
+    }
+
+    @Override
+    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
+        super.step(friends, enemies);
     }
 
 }
