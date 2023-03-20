@@ -16,12 +16,14 @@ public abstract class Person implements GameInterface, Comparable<Person> {
      * private int minDamage - минимальный урон;
      * private int maxDamage - максимальный урон;
      * private int speed - скорость(определяет очередность хода персонажа).
+     * protected static int heroCnt - счетчик количества персонажей.
      * 
      */
     public String name;
     public String state;
     private int currentHealth, maxHealth, attack, defence, minDamage, maxDamage, speed;
     protected Vector2D coords;
+    protected static int heroCnt;
 
     public Person(String name, int x, int y, int currentHealth, int maxHealth, int attack, int defence, int minDamage,
             int maxDamage, int speed) {
@@ -34,7 +36,8 @@ public abstract class Person implements GameInterface, Comparable<Person> {
         this.defence = defence;
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
-        this.speed = speed;        
+        this.speed = speed;
+        heroCnt++;        
     }
 
     public int getCurrentHealth() {
@@ -119,9 +122,7 @@ public abstract class Person implements GameInterface, Comparable<Person> {
     }
 
     @Override
-    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
-
-    }
+    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {}
 
     @Override
     public int compareTo(Person o) {

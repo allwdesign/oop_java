@@ -23,19 +23,18 @@ public abstract class Healer extends Person {
         return magic;
     }
 
-    public void setMagic(int magic) {
+    protected void setMagic(int magic) {
         this.magic = magic;
     }
 
     private void toTreat(Person whom) {
+        // Treats only friends
         whom.getDamage(this.getMinDamage());
         System.out.println(this.getInfo() + " вылечил " + whom.getInfo());
     }
 
     @Override
     public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
-        super.step(friends, enemies);
-
         if (!this.state.equals("Die")) {
 
             // Find among your character with health less than the maximum and cure him!

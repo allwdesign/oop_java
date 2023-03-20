@@ -61,9 +61,7 @@ public abstract class Bowman extends Person {
     }
 
     @Override
-    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
-        super.step(friends, enemies);
-        
+    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {      
         if (state.equals("Die") || getShots() == 0) return;
 
         // Search among enemies for the closest. Enemy must be alive

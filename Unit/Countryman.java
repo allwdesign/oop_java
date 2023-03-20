@@ -45,8 +45,6 @@ public class Countryman extends Person {
 
     @Override
     public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
-        super.step(friends, enemies);
-
         if (!this.state.equals("Die")) this.state = "Stand";
     }
 

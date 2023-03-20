@@ -48,7 +48,6 @@ public class Bandit extends Person {
 
     @Override
     public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
-        // TODO Auto-generated method stub
         super.step(friends, enemies);
     }
 

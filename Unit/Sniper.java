@@ -1,7 +1,5 @@
 package game.Unit;
 
-import java.util.ArrayList;
-
 public class Sniper extends Bowman {
     /*
      * Сlass Sniper - Снайпер дочерний класс класса Лучников
@@ -10,12 +8,6 @@ public class Sniper extends Bowman {
      * 
      */
     private int secrecy;
-
-    public Sniper(String name, int x, int y, int currentHealth, int maxHealth, int attack, int defence, int minDamage,
-            int maxDamage, int speed, int shots, int sharpshooting, int secrecy, int distance) {
-        super(name, x, y, currentHealth, maxHealth, attack, defence, minDamage, maxDamage, speed, shots, sharpshooting, distance);
-        this.secrecy = secrecy;
-    }
 
     public Sniper(String name, int x, int y) {
         super(name, x, y, 15, 15, 12, 10, 8, 10, 9, 32, 9, 15);
@@ -26,21 +18,16 @@ public class Sniper extends Bowman {
         return secrecy;
     }
 
-    public void setSecrecy(int secrecy) {
+    protected void setSecrecy(int secrecy) {
         this.secrecy = secrecy;
     }
+
+    // The step method will be inherited from the Bowman class
 
     @Override
     public String getInfo() {
         String str = "Снайпер" + super.getInfo();
         return str;
     }
-
-    @Override
-    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
-        super.step(friends, enemies);
-    }
-
-    
 
 }
