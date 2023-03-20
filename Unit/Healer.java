@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public abstract class Healer extends Person {
     /*
-     * Сlass Healer - Лекари базовый абстрактный класс
+     * Сlass Healer - Лекари базовый абстрактный класс.
+     * 
+     * Лечат только союзников.
      * 
      * private int magic - магия.
      * 
@@ -25,11 +27,7 @@ public abstract class Healer extends Person {
         this.magic = magic;
     }
 
-    public void toTreat(Person whom) {
-        // int maxH = whom.getMaxHealth();
-        // System.out.println("Your hero is cured :)");
-        // int tmpHealth = whom.getCurrentHealth() * this.getMagic();
-        // whom.setCurrentHealth(tmpHealth >= maxH ? maxH : tmpHealth);
+    private void toTreat(Person whom) {
         whom.getDamage(this.getMinDamage());
         System.out.println(this.getInfo() + " вылечил " + whom.getInfo());
     }
@@ -37,6 +35,20 @@ public abstract class Healer extends Person {
     @Override
     public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
         super.step(friends, enemies);
+
+        if (!this.state.equals("Die")) {
+
+            // Find among your character with health less than the maximum and cure him!
+            for (int i = 0; i < friends.size(); i++) {
+                Person friend = friends.get(i);
+                
+                if ((friend.getCurrentHealth() < friend.getMaxHealth()) && friend.state.equals("Stand")) {
+                    this.toTreat(friend);
+                    break;
+                }
+            }
+
+        }
     }
 
 }

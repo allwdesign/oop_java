@@ -6,6 +6,8 @@ public class Wizard extends Healer {
     /*
      * Сlass Healer - Колдун дочерний класс класса Лекари
      * 
+     * Лечит только союзников: +5 к здоровью.
+     * 
      */
 
     public Wizard(String name, int x, int y, int currentHealth, int maxHealth, int attack, int defence, int minDamage,
@@ -30,22 +32,12 @@ public class Wizard extends Healer {
 
     @Override
     public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
+        // Treats only allies(friends) +5 to health.
+        System.out.println("Wizard step " + this.name);
         super.step(friends, enemies);
-        // System.out.println("Wizard step " + this.name);
+        
 
-        if (!this.state.equals("Die")) {
-
-            // Find among your character with health less than the maximum and cure him!
-            for (int i = 0; i < friends.size(); i++) {
-                Person friend = friends.get(i);
-                // System.out.println("Персонаж " + friend.getInfo());
-                if ((friend.getCurrentHealth() < friend.getMaxHealth()) && friend.state.equals("Stand")) {
-                    this.toTreat(friend);
-                    break;
-                }
-            }
-
-        }
+        
     }
 
     

@@ -41,11 +41,11 @@ public abstract class Person implements GameInterface, Comparable<Person> {
         return currentHealth;
     }
 
-    public void setCurrentHealth(int currentHealth) {
+    protected void setCurrentHealth(int currentHealth) {
         this.currentHealth = currentHealth;
     }
 
-    public int getMaxHealth() {
+    protected int getMaxHealth() {
         return maxHealth;
     }
 
@@ -53,19 +53,19 @@ public abstract class Person implements GameInterface, Comparable<Person> {
         this.maxHealth = maxHealth;
     }
 
-    public int getAttack() {
+    protected int getAttack() {
         return attack;
     }
 
-    public void setAttack(int attack) {
+    protected void setAttack(int attack) {
         this.attack = attack;
     }
 
-    public int getDefence() {
+    protected int getDefence() {
         return defence;
     }
 
-    public void setDefence(int defence) {
+    protected void setDefence(int defence) {
         this.defence = defence;
     }
 
@@ -73,7 +73,7 @@ public abstract class Person implements GameInterface, Comparable<Person> {
         return minDamage;
     }
 
-    public void setMinDamage(int minDamage) {
+    protected void setMinDamage(int minDamage) {
         this.minDamage = minDamage;
     }
 
@@ -81,7 +81,7 @@ public abstract class Person implements GameInterface, Comparable<Person> {
         return maxDamage;
     }
 
-    public void setMaxDamage(int maxDamage) {
+    protected void setMaxDamage(int maxDamage) {
         this.maxDamage = maxDamage;
     }
 
@@ -89,7 +89,7 @@ public abstract class Person implements GameInterface, Comparable<Person> {
         return speed;
     }
 
-    public void setSpeed(int speed) {
+    protected void setSpeed(int speed) {
         this.speed = speed;
     }
 

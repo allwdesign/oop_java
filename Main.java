@@ -32,7 +32,7 @@ public class Main {
 
     static final int TEAMSIZE = 10;
     public static void main(String[] args) {
-
+        
         ArrayList<Person> team1 = new ArrayList<>();
         ArrayList<Integer> indexes1 = new ArrayList<>();
         indexes1.add(3);
@@ -78,8 +78,7 @@ public class Main {
                     player.step(team2, team1);
                 }
                 
-                System.out.printf("N: %s cH: %s", player.name, player.getCurrentHealth());
-                System.out.println();
+                System.out.println(player.getInfo());
             }
             
 

@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class Monk extends Healer {
     /*
-     * Сlass Monk - Монах дочерний класс класса Лекари
+     * Сlass Monk - Монах дочерний класс класса Лекари. 
+     * 
+     * Лечит только союзников: +4 к здоровью.
      * 
      * private int godliness - набожность.
      * 
@@ -42,6 +44,8 @@ public class Monk extends Healer {
 
     @Override
     public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
+        // Treats only allies(friends) +4 to health.
+        System.out.println("Monk step " + this.name); 
         super.step(friends, enemies);
     }
 
