@@ -1,21 +1,13 @@
 package game.Unit;
 
-import java.util.ArrayList;
-
-public class Spearman extends Person {
+public class Spearman extends Footman {
     /*
-     * Сlass Countryman - Крестьянин дочерний класс класса Персонаж
+     * Сlass Spearman - Копейщик дочерний класс класса Пехотинец
      * 
      * private int spearProficiency - уровень владения копьем.
      * 
      */
     private int spearProficiency;
-
-    public Spearman(String name, int x, int y, int currentHealth, int maxHealth, int attack, int defence, int minDamage,
-            int maxDamage, int speed, int spearProficiency) {
-        super(name, x, y, currentHealth, maxHealth, attack, defence, minDamage, maxDamage, speed);
-        this.spearProficiency = spearProficiency;
-    }
 
     public Spearman(String name, int x, int y) {
         super(name, x, y, 10, 10, 4, 5, 1, 3, 4);
@@ -32,15 +24,8 @@ public class Spearman extends Person {
 
     @Override
     public String getInfo() {
-        String str = "Копейщик" + super.getInfo();
+        String str = "Пикинёр" + super.getInfo();
         return str;
     }
-
-    @Override
-    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
-        super.step(friends, enemies);
-    }
-
-    
 
 }

@@ -89,4 +89,9 @@ public abstract class Bowman extends Person {
         }
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + " Shots:" + this.getShots() + " " + this.state;
+    }
+    
 }

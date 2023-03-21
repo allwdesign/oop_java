@@ -31,58 +31,68 @@ public class Main {
      */
 
     static final int TEAMSIZE = 10;
+    public static ArrayList<Person> team1 = new ArrayList<>();
+    public static ArrayList<Person> team2 = new ArrayList<>();
+    public static ArrayList<Person> allPlayers = new ArrayList<>();
+    private static boolean notEnd = true;
+
     public static void main(String[] args) {
-        
-        ArrayList<Person> team1 = new ArrayList<>();
-        ArrayList<Integer> indexes1 = new ArrayList<>();
-        indexes1.add(3);
-        indexes1.add(6);
-        indexes1.add(2);
-        indexes1.add(1);
-
-        System.out.println("Команда 1");
-        System.out.println("Разрешены:  - Крестьянин, Разбойник, Снайпер или Колдун.");
-        createTeam(team1, indexes1, 1);
-
-        ArrayList<Person> team2 = new ArrayList<>();
-        ArrayList<Integer> indexes2 = new ArrayList<>();
-        indexes2.add(3);
-        indexes2.add(5);
-        indexes2.add(4);
-        indexes2.add(0);
-
-        printPlayers("", team1);
-
-        System.out.println("Команда 2");
-        System.out.println("Разрешены:  - Крестьянин, Копейщик, Арбалетчик, Монах.");
-        createTeam(team2, indexes2, 2);
-
-        printPlayers("", team2);
-
-        ArrayList<Person> allPlayers = new ArrayList<>();
         Scanner userInput = new Scanner(System.in);
+        System.out.println("Нажмите Enter чтобы начать.");
+        userInput.nextLine();
+        // Players: Countryman, Bandit, Sniper, Wizard.
+        createTeam(team1, 0, 1);
+        // Players: Countryman, Spearman, Arbalester, Monk.
+        createTeam(team2, 3, 10);
 
         allPlayers.addAll(team1);
         allPlayers.addAll(team2);
 
         sortTeam(allPlayers);
 
-        
-        while (true){
+        // !(team1.isEmpty() || team2.isEmpty())
+        while (notEnd) {
+            View.view();
             userInput.nextLine();
-            // Define friend or foe 
-            for (Person player: allPlayers) {
-                if (team1.contains(player)) {
-                    player.step(team1, team2);                
+            // Define friend or foe
+            for (int i = 0; i < allPlayers.size(); i++) {
+                Person player = allPlayers.get(i);
+                // Выигрыш: Если все персонажи противника имеют состояние Die
+                if (player.state.equals("Stand")) {
+                    if (team1.contains(player)) {
+                        checkEnemyTeam(team2, 1);
+                        player.step(team1, team2);
+                    } else {
+                        checkEnemyTeam(team1, 2);
+                        player.step(team2, team1);
+                    }
                 } else {
-                    player.step(team2, team1);
+                    // player died
+                    allPlayers.remove(player);
                 }
-                
-                System.out.println(player.getInfo());
             }
-            
 
         }
+    }
+
+    private static void checkEnemyTeam(ArrayList<Person> enemyTeam, int winTeamNum) {
+        for (Person enemy : enemyTeam) {
+            if (enemy.state.equals("Stand"))
+                return;
+        }
+        congratulate(winTeamNum);
+        notEnd = false;
+    }
+
+    public static void congratulate(int num) {
+        String side = "";
+        if (num == 1)
+            side = " Blue";
+        else
+            side = " Green";
+
+        System.out.println("Team " + num + side + " side" + " are Win!!!");
+
     }
 
     public static void printPlayers(String msg, ArrayList<Person> players) {
@@ -99,56 +109,50 @@ public class Main {
          * 
          * From fast to slow.
          */
-        
+
         team.sort(new Comparator<Person>() {
 
             @Override
             public int compare(Person o1, Person o2) {
                 if (o2.getSpeed() == o1.getSpeed()) {
-                    return (int) (o2.getCurrentHealth()- o1.getCurrentHealth());
+                    return (int) (o2.getCurrentHealth() - o1.getCurrentHealth());
                 } else {
                     return (int) (o2.getSpeed() - o1.getSpeed());
                 }
             }
 
-        }); 
+        });
     }
 
-    private static void createTeam(ArrayList<Person> team, ArrayList<Integer> indexes, int teamNumber) {
-        // team1[3, 6, 2, 1]
-        // team2[3, 5, 4, 0]
-
-        Random rnd = new Random();
+    private static void createTeam(ArrayList<Person> team, int offset, int y) {
 
         for (int i = 1; i < TEAMSIZE + 1; i++) {
 
-            switch (indexes.get(rnd.nextInt(indexes.size()))) {
+            int rnd = new Random().nextInt(4) + offset;
+            switch (rnd) {
                 case 0:
-                    team.add(new Monk(getName(), 10, 1));
+                    team.add(new Sniper(getName(), i + 1, y));
                     break;
                 case 1:
-                    team.add(new Wizard(getName(), 1, 1));
+                    team.add(new Bandit(getName(), i + 1, y));
                     break;
                 case 2:
-                    team.add(new Sniper(getName(), 1, 2));
+                    team.add(new Wizard(getName(), i + 1, y));
                     break;
                 case 3:
-                    if (teamNumber == 1){ 
-                        team.add(new Countryman(getName(), 1, 3));
-                    } else {
-                        team.add(new Countryman(getName(), 10, 3));
-                    }
+                    team.add(new Countryman(getName(), i + 1, y));
                     break;
                 case 4:
-                    team.add(new Arbalester(getName(), 10, 4));
+                    team.add(new Arbalester(getName(), i + 1, y));
                     break;
                 case 5:
-                    team.add(new Spearman(getName(), 10, 5));
+                    team.add(new Monk(getName(), i + 1, y));
                     break;
-                default:
-                    team.add(new Bandit(getName(), 1, 6));
+                case 6:
+                    team.add(new Spearman(getName(), i + 1, y));
                     break;
             }
+
         }
     }
 

@@ -1,23 +1,16 @@
 package game.Unit;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-public class Bandit extends Person {
+public class Bandit extends Footman {
     /*
-     * Сlass Bandit - Разбойник дочерний класс класса Персонаж
+     * Сlass Bandit - Разбойник дочерний класс класса Пехотинец
      * 
      * private int smartness - ловкость.
      * 
      */
 
     private int smartness;
-
-    public Bandit(String name, int x, int y, int currentHealth, int maxHealth, int attack, int defence, int minDamage,
-            int maxDamage, int speed, int smartness) {
-        super(name, x, y, currentHealth, maxHealth, attack, defence, minDamage, maxDamage, speed);
-        this.smartness = smartness;
-    }
 
     public Bandit(String name, int x, int y) {
         super(name, x, y, 10, 10, 8, 3, 2, 4, 6);
@@ -44,11 +37,6 @@ public class Bandit extends Person {
     public String getInfo() {
         String str = "Разбойник" + super.getInfo();
         return str;
-    }
-
-    @Override
-    public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {
-        super.step(friends, enemies);
     }
 
     
