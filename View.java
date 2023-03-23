@@ -32,7 +32,7 @@ public class View {
         String out = "| ";
         for (Person player: Main.allPlayers) {
             if (player.getCoords()[0] == x && player.getCoords()[1] == y){
-                if (player.getCurrentHealth() == 0) {
+                if (player.getCurrentHealth() <= 0) {
                     out = "|" + (AnsiColors.ANSI_RED + player.getInfo().charAt(0) + AnsiColors.ANSI_RESET);
                     break;
                 }
@@ -58,31 +58,31 @@ public class View {
         for (int i = 0; i < l[0]-9; i++) System.out.print(" ");
         System.out.println(":\tGreen side");
         for (int i = 1; i < 11; i++) {
-            System.out.print(getChar(1, i));
+            System.out.print(getChar(1, i)); // 
         }
         System.out.print("|    ");
-        System.out.print(Main.team2.get(0));
-        tabSetter(Main.team2.get(0).toString().length(), l[0]);
-        System.out.println(Main.team1.get(0));
+        System.out.print(Main.team1.get(0));
+        tabSetter(Main.team1.get(0).toString().length(), l[0]);
+        System.out.println(Main.team2.get(0));
         System.out.println(midl10);
 
-        for (int i = 2; i < 9; i++) {
+        for (int i = 2; i < 10; i++) {
             for (int j = 1; j < 11; j++) {
                 System.out.print(getChar(i, j));
             }
             System.out.print("|    ");
-            System.out.print(Main.team2.get(i-1));
-            tabSetter(Main.team2.get(i-1).toString().length(), l[0]);
-            System.out.println(Main.team1.get(i-1));
+            System.out.print(Main.team1.get(i-1)); 
+            tabSetter(Main.team1.get(i-1).toString().length(), l[0]);
+            System.out.println(Main.team2.get(i-1)); 
             System.out.println(midl10);
         }
         for (int j = 1; j < 11; j++) {
-            System.out.print(getChar(10, j));
+            System.out.print(getChar(10, j)); // last string in table 
         }
         System.out.print("|    ");
-        System.out.print(Main.team2.get(9));
-        tabSetter(Main.team2.get(9).toString().length(), l[0]);
-        System.out.println(Main.team1.get(9));
+        System.out.print(Main.team1.get(9));
+        tabSetter(Main.team1.get(9).toString().length(), l[0]);
+        System.out.println(Main.team2.get(9));
         System.out.println(bottom10);
     }
 }

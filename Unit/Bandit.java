@@ -37,7 +37,5 @@ public class Bandit extends Footman {
     public String getInfo() {
         String str = "Разбойник" + super.getInfo();
         return str;
-    }
-
-    
+    }    
 }

@@ -47,7 +47,8 @@ public abstract class Bowman extends Person {
     }
 
     public void goBang() {
-        this.setShots(this.getShots() - 1);
+        // 0 - if shots have ended
+        this.setShots(this.getShots() > 0 ? this.getShots() - 1 : 0);
     }
 
     public boolean changeMagazine() {
@@ -62,7 +63,7 @@ public abstract class Bowman extends Person {
 
     @Override
     public void step(ArrayList<Person> friends, ArrayList<Person> enemies) {      
-        if (state.equals("Die") || getShots() == 0) return;
+        if (state.equals("Die") || getShots() <= 0) return;
 
         // Search among enemies for the closest. Enemy must be alive
         int target = super.findNearest(enemies);
@@ -73,25 +74,25 @@ public abstract class Bowman extends Person {
             this.getMaxDamage() : (this.getMaxDamage() + this.getMinDamage()) / 2;
 
         enemy.getDamage(damage);
-        System.out.println(this.getInfo() + " нанес ущерб " + damage + " " + enemy.getInfo());
 
         // Find among your countryman.
         // If found, complete the method otherwise reduce the stock of arrows by one.
         for (int i = 0; i < friends.size(); i++) {
-            Person friend = friends.get(i);
+            Person friend = friends.get(i);            
             // if (friend instanceof Countryman) - slow!
-            if (friend.getInfo().contains("Крестьянин") && friend.state.equals("Stand")) {
+            if (friend.getInfo().contains("Крестьянин") && friend.state.equals("Stand")) { 
                 friend.state = "Busy";
                 return;
-            } else {
-                this.goBang();
             }
         }
+        // Countryman not found. Reduce the stock of arrows by one.
+        this.goBang();
+        
     }
 
     @Override
     public String toString() {
-        return super.toString() + " Shots:" + this.getShots() + " " + this.state;
+        return super.toString() + " Shots:" + this.getShots();
     }
     
 }

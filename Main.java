@@ -2,8 +2,11 @@ package game;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Scanner;
+
+
 
 import game.Unit.Arbalester;
 import game.Unit.Bandit;
@@ -34,7 +37,7 @@ public class Main {
     public static ArrayList<Person> team1 = new ArrayList<>();
     public static ArrayList<Person> team2 = new ArrayList<>();
     public static ArrayList<Person> allPlayers = new ArrayList<>();
-    private static boolean notEnd = true;
+    private static boolean finish = false;
 
     public static void main(String[] args) {
         Scanner userInput = new Scanner(System.in);
@@ -44,55 +47,59 @@ public class Main {
         createTeam(team1, 0, 1);
         // Players: Countryman, Spearman, Arbalester, Monk.
         createTeam(team2, 3, 10);
-
+        
         allPlayers.addAll(team1);
         allPlayers.addAll(team2);
 
         sortTeam(allPlayers);
 
-        // !(team1.isEmpty() || team2.isEmpty())
-        while (notEnd) {
+        while (true){
             View.view();
             userInput.nextLine();
-            // Define friend or foe
-            for (int i = 0; i < allPlayers.size(); i++) {
-                Person player = allPlayers.get(i);
-                // Выигрыш: Если все персонажи противника имеют состояние Die
-                if (player.state.equals("Stand")) {
-                    if (team1.contains(player)) {
-                        checkEnemyTeam(team2, 1);
-                        player.step(team1, team2);
+            for (Person player: allPlayers) {
+                if (team1.contains(player)) {
+                    if (enemiesAreAlive(team2) == true) {
+                        player.step(team1, team2);    
                     } else {
-                        checkEnemyTeam(team1, 2);
-                        player.step(team2, team1);
+                        congratulate(1); 
+                        break;
                     }
                 } else {
-                    // player died
-                    allPlayers.remove(player);
+                    if (enemiesAreAlive(team1) == true) {
+                        player.step(team2, team1);
+                    } else {
+                        congratulate(2);  
+                        break;
+                    }
                 }
             }
-
-        }
+            if (finish == true) break;
+        }    
     }
 
-    private static void checkEnemyTeam(ArrayList<Person> enemyTeam, int winTeamNum) {
-        for (Person enemy : enemyTeam) {
-            if (enemy.state.equals("Stand"))
-                return;
+    private static boolean enemiesAreAlive(ArrayList<Person> enemyTeam) {
+        int allDied = 0;
+        for (int i = 0; i < enemyTeam.size(); i++) {         
+            Person enemy = enemyTeam.get(i);
+            if (enemy.state.equals("Stand")) {
+                return true;
+            } else  {
+            allDied++;
+            }
         }
-        congratulate(winTeamNum);
-        notEnd = false;
+        if (allDied == TEAMSIZE) {          
+            return false;
+        }
+        return finish;
     }
 
     public static void congratulate(int num) {
         String side = "";
-        if (num == 1)
-            side = " Blue";
-        else
-            side = " Green";
+        if (num == 1) side = " Blue";
+        else side = " Green";
 
         System.out.println("Team " + num + side + " side" + " are Win!!!");
-
+        finish = true;
     }
 
     public static void printPlayers(String msg, ArrayList<Person> players) {
@@ -124,32 +131,33 @@ public class Main {
         });
     }
 
-    private static void createTeam(ArrayList<Person> team, int offset, int y) {
+    private static void createTeam(ArrayList<Person> team, int offset, int x) {
 
         for (int i = 1; i < TEAMSIZE + 1; i++) {
 
             int rnd = new Random().nextInt(4) + offset;
+            
             switch (rnd) {
                 case 0:
-                    team.add(new Sniper(getName(), i + 1, y));
+                    team.add(new Sniper(getName(), x, i));
                     break;
                 case 1:
-                    team.add(new Bandit(getName(), i + 1, y));
+                    team.add(new Bandit(getName(), x, i));
                     break;
                 case 2:
-                    team.add(new Wizard(getName(), i + 1, y));
+                    team.add(new Wizard(getName(), x, i));
                     break;
                 case 3:
-                    team.add(new Countryman(getName(), i + 1, y));
+                    team.add(new Countryman(getName(), x, i));
                     break;
                 case 4:
-                    team.add(new Arbalester(getName(), i + 1, y));
+                    team.add(new Arbalester(getName(), x, i));
                     break;
                 case 5:
-                    team.add(new Monk(getName(), i + 1, y));
+                    team.add(new Monk(getName(), x, i));
                     break;
                 case 6:
-                    team.add(new Spearman(getName(), i + 1, y));
+                    team.add(new Spearman(getName(), x, i));
                     break;
             }
 

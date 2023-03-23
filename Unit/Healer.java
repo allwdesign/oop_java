@@ -30,7 +30,6 @@ public abstract class Healer extends Person {
     private void toTreat(Person whom) {
         // Treats only friends
         whom.getDamage(this.getMinDamage());
-        System.out.println(this.getInfo() + " вылечил " + whom.getInfo());
     }
 
     @Override

@@ -35,9 +35,30 @@ public class Vector2D {
             return false;
     }
 
+    protected boolean isInsideTheBorders() {
+        if ((this.y < 10) && (this.y > 0) && (this.x < 10) && (this.x > 0)) return true;
+        else return false;
+    }
+
     protected void getDirection(Vector2D enemy) {
 
-        if (isLeft(enemy)) {
+        if(!isInsideTheBorders()) {
+            if (this.y == 10) {
+                this.y--;
+                return;
+            } else if(this.y == 1) {
+                this.y++;
+                return;
+            } else if(this.x == 10) {
+                this.x--;
+                return;
+            } else if(this.x == 1) {
+                this.x++;
+                return;
+            } else {}
+        }
+
+        if (isLeft(enemy) && isInsideTheBorders() && !isSameCoord(enemy)) {
             // We move to the left = reduce x--
             this.x--;
 
@@ -46,7 +67,7 @@ public class Vector2D {
             this.x++;
         }
 
-        if (isAbove(enemy)) {
+        if (isAbove(enemy) && isInsideTheBorders() && !isSameCoord(enemy)) {
             // We moving up
             this.y++;
         } else {

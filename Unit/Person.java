@@ -43,7 +43,7 @@ public abstract class Person implements GameInterface, Comparable<Person> {
     @Override
     public String toString() {
         return name +
-                " H:" + Math.round(currentHealth) +
+                " H:" + Math.round(currentHealth > 0 ? currentHealth : 0) +
                 " D:" + defence +
                 " A:" + attack +
                 " Dmg:" + Math.round(Math.abs((minDamage + maxDamage)/2)) + " " +
@@ -124,16 +124,17 @@ public abstract class Person implements GameInterface, Comparable<Person> {
     protected void getDamage(float damage) {
         currentHealth -= damage;
         if (currentHealth > maxHealth) currentHealth = maxHealth;
-        if (currentHealth < 0) {
+        if (currentHealth <= 0) {
             state = "Die";
+            setCurrentHealth(0);
             heroCnt--;
         }
     }
 
     @Override
     public String getInfo() {
-        return String.format(" : %s %s. Здоровье: %s. Состояние: %s", name, this.hashCode(), 
-                getCurrentHealth(), this.state);
+        return String.format(" : %s %s. Здоровье: %s. Состояние: %s.", name, this.hashCode(), 
+                this.getCurrentHealth(), this.state);
     }
 
     @Override

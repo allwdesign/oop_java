@@ -23,14 +23,14 @@ public abstract class Footman extends Person {
         Person enemy = enemies.get(target);
 
         // We calculate what level of damage
-        float damage = (enemy.getDefence() - this.getAttack() > 0) ? this.getMinDamage()
-                : (enemy.getDefence() - this.getAttack() < 0) ? this.getMaxDamage()
-                        : (this.getMaxDamage() + this.getMinDamage()) / 2;
+        float damage = (enemy.getDefence() - this.getAttack() > 0) ?
+                this.getMinDamage() : (enemy.getDefence() - this.getAttack() < 0) ?
+                this.getMaxDamage() : (this.getMaxDamage() + this.getMinDamage()) / 2;
 
         // If the distance to the enemy is less than two cells
         if (this.coords.calcDistance(enemy.coords) < 2) {
             enemy.getDamage(damage);
-            System.out.println(this.getInfo() + " нанес ущерб " + damage + " " + enemy.getInfo());
+            return;
         } else {
             // We determine in which direction we should go to the enemy
             coords.getDirection(enemy.coords);
